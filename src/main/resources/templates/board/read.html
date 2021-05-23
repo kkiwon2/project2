@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <th:block th:replace="~{/layout/basic :: setContent(~{this :: content3})}">
 
     <th:block th:fragment="content3">
@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
             <label>작성자</label>
-            <input type="text" class="form-control" name="writerEmail" th:value="${dto.writerEmail}" readonly>
+            <input type="text" class="form-control" name="writerName" th:value="${dto.writerName}" readonly>
         </div>
         <div class="form-group">
             <label>RegDate</label>
@@ -33,10 +33,16 @@
                    th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
         </div>
 
+
+        <input type="hidden" name="test" value=sec:authentication="principal.email">
+
+
+        <th:block th:if="${memberDTO.email == dto.writerEmail}">
         <a th:href="@{/board/modify(bno = ${dto.bno}, page=${requestDTO.page},
         type=${requestDTO.type}, keyword=${requestDTO.keyword})}">
             <button type="button" class="btn btn-primary">Modify</button>
         </a>
+        </th:block>
 
         <a th:href="@{/board/list(page=${requestDTO.page},
         type=${requestDTO.type}, keyword=${requestDTO.keyword})}">
@@ -58,7 +64,7 @@
                             <input class="form-control" type="text" name="replyText" placeholder="Reply Text....">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" type="text" name="replyer" placeholder="Replyer">
+                            <input class="form-control" type="text" name="replyer" readonly>
                             <input type="hidden" name="rno">
                         </div>
                     </div><!-- modal-body -->
@@ -139,7 +145,7 @@
 
                     //댓글 입력하는 부분 초기화 시키기
                     $('input[name="replyText"]').val('');
-                    $('input[name="replyer"]').val('');
+                    $('input[name="replyer"]').val([[${memberDTO.nickname}]]);
 
                     $(".modal-footer .btn").hide(); //모달 내의 모든 버튼을 안 보이도록
                     $(".replySave, .replyClose").show();    //필요한 버튼만 보이도록

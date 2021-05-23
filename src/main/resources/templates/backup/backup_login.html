@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+
+    <th:block th:fragment="content">
+
+        <div class="container">
+            <form th:action="@{/account/login}" class="form-signin" method="post">
+                <div class="text-center mb-4">
+                    <img class="mb-4" src="/img/log.png" alt="" width="144" height="144">
+                    <h1 class="h3 mb-3 font-weight-normal">로 그 인</h1>
+                </div>
+
+                <!-- 로그인 실패시 경고창 -->
+                <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-primary" role="alert">
+                    You have been logged out.
+                </div>
+
+
+                <div class="form-label-group">
+                    <label for="username">ID</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="userName"
+                           required autofocus>
+                </div>
+
+                <div class="form-label-group">
+                    <label for="inputPassword">Password</label>
+                    <input type="password" id="inputPassword" name="password" class="form-control"
+                           placeholder="Password" required>
+                </div>
+
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" name="remember-me"> 자동 로그인
+                    </label>
+                </div>
+
+                <div class="container-fluid text-center my-3">
+                    <button class="btn btn-primary " type="submit">로그인</button>
+                    <a th:href="@{/account/register}"> <button class="btn btn-primary" type="button">회원가입</button></a>
+                    <p class="mt-5 mb-3 text-muted text-center">&copy; 2021</p>
+                </div>
+            </form>
+        </div>
+        <hr>
+
+    </th:block>
+</th:block>

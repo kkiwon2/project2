@@ -12,10 +12,11 @@ import java.util.Set;
 
 @Entity
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor //별도의 생성자를 만들었는데 기본 생성자를 만들지 않았을 경우  인텔리j에서 경고줌 -> 생성자 안만들었는데 ㅅㅂ default때문인가?
 public class Member extends BaseEntity {
 
     @Id

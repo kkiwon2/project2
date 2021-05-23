@@ -58,6 +58,11 @@ public class BoardServiceImpl implements BoardService{
 
         Object[] arr = (Object[])result;
 
+        Board board = (Board)arr[0];
+        board.changeCnt();
+        log.info("get 메소드 조회수 증가......" );
+        boardRepository.save(board);
+
         return entityToDTO((Board) arr[0], (Member) arr[1], (Long) arr[2]);
     }
 
@@ -66,7 +71,7 @@ public class BoardServiceImpl implements BoardService{
 
         Board board = boardRepository.findById(boardDTO.getBno()).get();
 
-        if(board != null){
+        if(board != null ){
 
             board.changeTitle(boardDTO.getTitle());
             board.changeContent(boardDTO.getContent());

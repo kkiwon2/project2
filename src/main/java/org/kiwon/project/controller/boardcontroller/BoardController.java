@@ -29,6 +29,7 @@ public class BoardController {
         log.info("list........");
         log.info("PageRequestDTO : " + pageRequestDTO);
         model.addAttribute("result", boardService.getList(pageRequestDTO));
+        
     }
 
     @GetMapping("/register")
@@ -54,8 +55,10 @@ public class BoardController {
         return "redirect:/board/list";
     }
 
+    //게시판 상세 조회 요청
     @GetMapping({"/read", "/modify"})
-    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long bno, Model model){
+    public void read(@ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long bno, Model model,
+                     @AuthenticationPrincipal MemberDTO memberDTO){
 
         log.info("read get........");
         log.info("bno : " + bno);
@@ -64,6 +67,7 @@ public class BoardController {
 
         log.info("boardDTO : " + boardDTO);
 
+        model.addAttribute("memberDTO", memberDTO);
         model.addAttribute("dto", boardDTO);
     }
 

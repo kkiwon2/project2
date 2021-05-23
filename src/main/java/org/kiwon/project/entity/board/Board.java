@@ -16,9 +16,12 @@ public class Board extends BaseEntity {
 
     @Id //pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) //자동시퀀스?
-    private Long bno;   //게시판 번호
-    private String title;
-    private String content;
+    private Long bno;       //게시판 번호
+    private String title;   //게시판 제목
+    private String content; //게시판 내용
+
+    @Builder.Default
+    private Long cnt = 0L;       //조회수
 
 
 
@@ -32,6 +35,8 @@ public class Board extends BaseEntity {
     public void changeContent(String content) {
         this.content = content;
     }
+
+    public void changeCnt() {this.cnt += 1;}
 
 
 }

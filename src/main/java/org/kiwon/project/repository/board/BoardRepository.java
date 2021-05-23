@@ -27,6 +27,7 @@ public interface BoardRepository extends JpaRepository<Board, Long>, SearchBoard
             countQuery = "select count(b) from Board b")
     Page<Object[]> getBoardWithReplyCount(Pageable pageable);
 
+    //게시판 상세 조회 쿼리
     @Query("select b,w, count(r) from Board b " +
             "left join b.writer w " +
             "left join Reply r on r.board = b where b.bno = :bno")

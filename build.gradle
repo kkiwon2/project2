@@ -34,6 +34,10 @@ dependencies {
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time'
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5'
     implementation('com.querydsl:querydsl-jpa')
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    //lpg4jdbc 최신버전
+    compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+
 }
 
 test {
