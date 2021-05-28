@@ -36,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
         //인가 OR 인증에 문제시 로그인 화면을 나타냄
         .formLogin().loginPage("/account/login").permitAll();
-        http.logout().logoutSuccessUrl("/").and()  //CSRF를 사용할때는 POST방식으로만 로그아웃을 처리한다.
+        http.logout().logoutSuccessUrl("/").and();  //CSRF를 사용할때는 POST방식으로만 로그아웃을 처리한다.
         // CSRF 토근 발행 비활성화
-        .csrf().disable();
+        // .csrf().disable();
 
         //rememberMe()설정
         http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(memberUserDetailsService);
