@@ -41,36 +41,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/account/login}">로그인</a>
-                        </li>
-                        <li class="nav-item">
-                            <th:block sec:authorize="isAuthenticated()">
-                                <a class="nav-link" sec:authentication="principal.nickname"></a>
-                            </th:block>
-                        </li>
-                        <li class="nav-item">
-                            <form id="logoutForm" method="post" th:action="@{/logout}" sec:authorize="isAuthenticated()">
-                                <a class="nav-link logout" href="#">로그아웃  <span class="sr-only">(current)</span></a>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
 
             <div class="container-fluid">
                 <th:block th:replace="${content}"></th:block>
@@ -82,7 +53,23 @@
     <!-- /#wrapper -->
 
 
+    <!-- Menu Toggle Script -->
+    <script th:inline="javascript">
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
 
+        $("document").ready(function (){
+
+
+            var actionForm = $("#logoutForm");
+            $(".logout").click(function (){
+                actionForm.submit();
+            });
+        });
+
+    </script>
 
     </body>
 </th:block>
