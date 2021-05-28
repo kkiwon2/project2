@@ -82,23 +82,7 @@
     <!-- /#wrapper -->
 
 
-    <!-- Menu Toggle Script -->
-    <script th:inline="javascript">
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
 
-        $("document").ready(function (){
-
-
-            var actionForm = $("#logoutForm");
-            $(".logout").click(function (){
-                actionForm.submit();
-            });
-        });
-
-    </script>
 
     </body>
 </th:block>
