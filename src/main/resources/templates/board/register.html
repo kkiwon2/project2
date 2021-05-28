@@ -7,7 +7,7 @@
 
         <h1 class="mt-4">게시글 작성</h1>
 <!--        <div sec:authentication="principal.email"></div>-->
-        <form th:action="@{board/register}" th:method="post">
+        <form th:action="@{/board/register}" th:method="post">
             <input type="hidden" name="writerEmail" th:value="${boardDTO.writerEmail}">
             <div class="form-group">
                 <label>제목</label>
@@ -22,7 +22,7 @@
                 <input type="email" class="form-control" name="writerName" th:value="${boardDTO.writerName}" readonly>
             </div>
             <button type="submit" class="btn btn-primary">등록</button>
-            <a th:href="@{list}"><button type="button" class="btn btnReset btn-danger">취소</button></a>
+            <a th:href="@{/list}"><button type="button" class="btn btnReset btn-danger">취소</button></a>
 
         </form>
 
