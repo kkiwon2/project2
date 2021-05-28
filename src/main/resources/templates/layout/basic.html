@@ -4,6 +4,7 @@
 <th:block th:fragment="setContent(content)">
     <head>
 
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -57,19 +58,7 @@
                         <li class="nav-item active">
                             <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/account/login}">로그인</a>
-                        </li>
-                        <li class="nav-item">
-                            <th:block sec:authorize="isAuthenticated()">
-                                <a class="nav-link" sec:authentication="principal.nickname"></a>
-                            </th:block>
-                        </li>
-                        <li class="nav-item">
-                            <form id="logoutForm" method="post" th:action="@{/logout}" sec:authorize="isAuthenticated()">
-                                <a class="nav-link logout" href="#">로그아웃  <span class="sr-only">(current)</span></a>
-                            </form>
-                        </li>
+
                     </ul>
                 </div>
             </nav>
