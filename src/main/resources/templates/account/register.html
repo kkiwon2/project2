@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
-
-    <th:block th:fragment="content">
 
         <div class="container">
             <form th:action="@{/account/register}" class="form-signin" method="post">
@@ -52,5 +49,4 @@
         <script th:inline="javascript">
 
         </script>
-    </th:block>
-</th:block>
+</html>
