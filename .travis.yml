@@ -8,6 +8,9 @@ jdk:
     only:
       - master
 
+    before_install:
+      - chmod +x gradlew
+
     # Travis CI 서버의 Home
     cache:  # 그레이들을 통해 의존성을 받게되면 이를 해당 디렉토리에 캐시하여, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정함
       directories:
