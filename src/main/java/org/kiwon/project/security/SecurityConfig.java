@@ -29,6 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //설정을 통한 접근제한을 처리
+        //authorizeRequests()가 선언되어야만 antMatchers 옵션을 사용할 수 있습니다.
+        //antMatchers()는 권한 관리 대상을 지정하는 옵션입니다.
+        //anyRequest()는 설정된 값을 이외 나머지 URL들을 나타냅니다.
+        //authenticated()를 추가하여 나머지 URL들은 모두 인증된 사용자들에게만 허용합니다. 인증된 사용자는, 로그인한 사용자들을 말함
         http.authorizeRequests()
                 .antMatchers("/","/account/**","/css/**","/vendor/**","/img/**").permitAll()
                 .antMatchers("/board/list","/board/**","/replies/**").hasRole("USER")
@@ -36,14 +40,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
         //인가 OR 인증에 문제시 로그인 화면을 나타냄
         .formLogin().loginPage("/account/login").permitAll();
-        http.logout().logoutSuccessUrl("/") //CSRF를 사용할때는 POST방식으로만 로그아웃을 처리한다.
+
+        //로그아웃 기능에 대한 여러 설정의 진입점입니다.
+        //로그아웃 성공시 "/"주소로 이동합니다.
+        http.logout().logoutSuccessUrl("/"); //CSRF를 사용할때는 POST방식으로만 로그아웃을 처리한다.
+
         // CSRF 토근 발행 비활성화
-        .and().csrf().disable();
+        http.csrf().disable();
 
         //rememberMe()설정
         http.rememberMe().tokenValiditySeconds(60*60*7).userDetailsService(memberUserDetailsService);
 
-        //OAuth를 사용한 로그인이 가능하도록 설정
+        //OAuth2 로그인 기능에 대한 여러 설정의 진입점입니다.
         http.oauth2Login();
 
         //사용자가 적절한 권한이 없어서 해당 페이지를 볼 수 없을때 보여줄 화면
