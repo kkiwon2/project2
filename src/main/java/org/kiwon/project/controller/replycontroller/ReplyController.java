@@ -32,7 +32,7 @@ public class ReplyController {
     @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody ReplyDTO replyDTO){
 
-        log.info(replyDTO);
+        log.info("ReplyController Post register : " + replyDTO);
 
         Long rno = replyService.register(replyDTO);
 

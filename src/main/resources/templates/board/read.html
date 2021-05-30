@@ -38,10 +38,10 @@
 
 
         <th:block th:if="${memberDTO.email == dto.writerEmail}">
-        <a th:href="@{/board/modify(bno = ${dto.bno}, page=${requestDTO.page},
+            <a th:href="@{/board/modify(bno = ${dto.bno}, page=${requestDTO.page},
         type=${requestDTO.type}, keyword=${requestDTO.keyword})}">
-            <button type="button" class="btn btn-primary">Modify</button>
-        </a>
+                <button type="button" class="btn btn-primary">Modify</button>
+            </a>
         </th:block>
 
         <a th:href="@{/board/list(page=${requestDTO.page},
