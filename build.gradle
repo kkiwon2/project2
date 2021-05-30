@@ -38,7 +38,7 @@ dependencies {
     implementation('com.querydsl:querydsl-jpa')
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     //lpg4jdbc 최신버전
-   // compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
+    // compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
     //스웨거 라이브러리 추가
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
