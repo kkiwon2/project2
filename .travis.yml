@@ -15,8 +15,8 @@ jdk:
     # 그레이들을 통해 의존성을 받게되면 이를 해당 디렉토리에 캐시하여, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정함
     cache:
       directories:
-        - '$Home/.m2/repository'
-        - '$Home/.gradle'
+        - '$HOME/.m2/repository'
+        - '$HOME/.gradle'
 
     # master 브랜치에 푸시되었을 때 수행하는 명령어입니다.
     # 여기서는 프로젝트 내부에 둔 gradlew을 통해 clean & build를 수행합니다.
