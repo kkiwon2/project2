@@ -77,11 +77,17 @@
 </body>
 
 <script th:inline="javascript">
+
+    $(document).ready(function () {
+        var email
+        var result2 = false;
+
     $('.btnemail').click(function (e) {
         e.preventDefault();
 
-        var email = $("input[name=email]").val();
+        email = $("input[name=email]").val();
         console.log(email);
+
         $.ajax({
             method: 'get',
             url: '/account/duplication',
@@ -94,13 +100,12 @@
                     $("input[name='email']").val('');
                 } else {
                     alert("사용가능한 아이디입니다.");
-
+                    result2 = true;
+                    console.log(result2);
                 }
             }
         });//ajax
     });//btnemail
-
-    $(document).ready(function () {
 
         var actionForm = $("form");
 
@@ -113,9 +118,16 @@
             console.log(password);
             console.log(password2);
 
-            if (password === password2) {
-                actionForm.submit();
-            } else {
+            if (password.length > 0 && password === password2) {
+                console.log(email.length);
+                if(result2 && email.length > 0){
+
+                    actionForm.submit();
+                }
+
+            } else if(password.length === 0) {
+                alert("비밀번호를 입력해주세요.");
+            }else{
                 alert("비밀번호가 다릅니다.");
             }
         });
