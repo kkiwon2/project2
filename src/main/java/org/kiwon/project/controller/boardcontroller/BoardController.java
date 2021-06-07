@@ -29,7 +29,7 @@ public class BoardController {
         log.info("list........");
         log.info("PageRequestDTO : " + pageRequestDTO);
         model.addAttribute("result", boardService.getList(pageRequestDTO));
-        
+
     }
 
     @GetMapping("/register")

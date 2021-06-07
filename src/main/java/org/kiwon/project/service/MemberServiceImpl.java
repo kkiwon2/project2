@@ -8,6 +8,8 @@ import org.kiwon.project.repository.member.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService{
@@ -21,5 +23,17 @@ public class MemberServiceImpl implements MemberService{
         member.setPassword(encodePassword);
         member.addMemberRole(MemberRole.USER);
         memberRepository.save(member);
+    }
+
+    @Override
+    public boolean find(String email) {
+        Optional<String> id = memberRepository.findByEmail2(email);
+
+        if (id.isPresent())
+        {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -9,4 +9,6 @@ public interface MemberService {
 
     public void save(Member member);
 
+    public boolean find(String email);
+
 }
