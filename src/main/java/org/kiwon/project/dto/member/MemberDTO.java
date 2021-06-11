@@ -1,6 +1,7 @@
 package org.kiwon.project.dto.member;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,7 +28,7 @@ public class MemberDTO extends User implements OAuth2User{
     private boolean fromSocial; //소셜사용 여부
 
     private Map<String, Object> attr;   //소셜로그인을 한 데이터는 OAuth2User의 Map<String, Object>형태로 반환함
-
+    
     public MemberDTO(
             String username,
             String password,

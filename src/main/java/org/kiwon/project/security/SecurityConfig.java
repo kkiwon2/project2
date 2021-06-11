@@ -34,8 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //anyRequest()는 설정된 값을 이외 나머지 URL들을 나타냅니다.
         //authenticated()를 추가하여 나머지 URL들은 모두 인증된 사용자들에게만 허용합니다. 인증된 사용자는, 로그인한 사용자들을 말함
         http.authorizeRequests()
-                .antMatchers("/","/account/**","/css/**","/vendor/**","/img/**").permitAll()
-                .antMatchers("/board/list","/board/**","/replies/**").hasRole("USER")
+                .antMatchers("/","/account/**","/css/**","/vendor/**","/img/**","/uploadTest/**").permitAll()
+                .antMatchers("/board/list","/board/**","/replies/**","/account/personal").hasRole("USER")
                 .anyRequest().authenticated()
                 .and()
         //인가 OR 인증에 문제시 로그인 화면을 나타냄

@@ -44,7 +44,11 @@ dependencies {
     //스웨거 라이브러리 추가
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    //섬네일 라이브러리
+    compile group: 'net.coobird', name: 'thumbnailator' , version: '0.4.12'
     //
+    testCompile('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
 
 
 }

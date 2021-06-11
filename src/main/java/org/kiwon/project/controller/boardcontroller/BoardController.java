@@ -3,9 +3,9 @@ package org.kiwon.project.controller.boardcontroller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.kiwon.project.dto.board.BoardDTO;
-import org.kiwon.project.dto.board.PageRequestDTO;
+import org.kiwon.project.dto.page.PageRequestDTO;
 import org.kiwon.project.dto.member.MemberDTO;
-import org.kiwon.project.service.BoardService;
+import org.kiwon.project.service.board.BoardService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public void list(PageRequestDTO pageRequestDTO,  Model model){
+    public void list(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal MemberDTO memberDTO){
 
         log.info("list........");
         log.info("PageRequestDTO : " + pageRequestDTO);

@@ -21,7 +21,7 @@
     <title>회원가입</title>
 </head>
 
-<body >
+<body>
 
 <div class="container">
     <form th:action="@{/account/register}" class="form-signin" method="post">
@@ -30,47 +30,43 @@
             <h1 class="h3 mb-3 font-weight-normal">로 그 인</h1>
         </div>
 
-        <!-- 로그인 실패시 경고창 -->
-        <div th:if="${param.error}" class="alert alert-danger" role="alert">
-            Invalid username and password.
-        </div>
-        <div th:if="${param.logout}" class="alert alert-primary" role="alert">
-            You have been logged out.
-        </div>
-
-
+        <!-- 아이디 입력부분 -->
         <div class="form-label-group my-2">
             <label for="email">아이디 </label>
-            <button class="btn btn-primary btnemail" type="button">중복확인</button>
-            <input type="text" id="email" name="email" class="form-control" placeholder="아이디 입력"
-                   maxlength="20" required autofocus>
+            <span class="input-group">
+                <input type="text" id="email" name="email" class="form-control" placeholder="아이디 입력" maxlength="20" required autofocus>
+                <button class="mx-4 btn btn-success email-check" type="button">중복확인</button>
+            </span>
         </div>
 
-
+        <!-- 비밀번호 입력부분 -->
         <div class="form-label-group">
             <label for="password">비밀번호</label>
-            <input type="password" id="password" name="password" class="form-control"
-                   maxlength="20" placeholder="비밀번호 입력" required>
+            <input type="password" id="password" name="password" class="form-control" maxlength="20" placeholder="비밀번호 입력" required>
         </div>
 
+        <!-- 비밀번호 확인 입력부분 -->
         <div class="form-label-group">
             <label for="password">비밀번호 확인</label>
-            <input type="password" id="password2" name="password2" class="form-control"
-                   maxlength="20" placeholder="비밀번호 입력" required>
+            <input type="password" id="password2" name="password2" class="form-control" maxlength="20" placeholder="비밀번호 입력" required>
         </div>
 
+        <!-- 회원의 닉네임 입력부분 -->
         <div class="form-label-group">
             <label for="nickName">닉네임</label>
-            <input type="text" id="nickName" name="nickName" class="form-control"
-                   placeholder="닉네임 입력" required>
+            <input type="text" id="nickName" name="nickName" class="form-control" placeholder="닉네임 입력" required>
         </div>
 
+        <!-- 소셜 확인부분 회원가입 한 사람은 자동으로 false값임 -->
         <input type="hidden" name="fromSocial" value="false">
 
+        <!-- 회원가입, 로그인 버튼 -->
         <div class="container-fluid text-center my-3">
             <button class="btn btn-primary join" type="submit">회원가입</button>
+            <button class="btn btn-secondary login">로그인</button>
             <p class="mt-5 mb-3 text-muted text-center">&copy; 2021</p>
         </div>
+
     </form>
 </div>
 <hr>
@@ -79,58 +75,70 @@
 <script th:inline="javascript">
 
     $(document).ready(function () {
-        var email
+        var email;
+        var nickName;
         var result2 = false;
-
-    $('.btnemail').click(function (e) {
-        e.preventDefault();
-
-        email = $("input[name=email]").val();
-        console.log(email);
-
-        $.ajax({
-            method: 'get',
-            url: '/account/duplication',
-            data: {email: email},
-            dataType: 'text', //받아올 데이터 타입
-            success: function (result) {
-                console.log(result);
-                if (result == 'true') {
-                    alert("중복된 아이디입니다.");
-                    $("input[name='email']").val('');
-                } else {
-                    alert("사용가능한 아이디입니다.");
-                    result2 = true;
-                    console.log(result2);
-                }
-            }
-        });//ajax
-    });//btnemail
-
         var actionForm = $("form");
+
+        $(".login").click(function () {
+            location.href = "http://localhost:8081/account/login";  //로그인화면으로 이동
+        });//login
+
+        $('.email-check').click(function (e) {
+            e.preventDefault();
+
+            email = $("input[name=email]").val();
+            console.log(email);
+            if(email.length == '0'){
+                alert("ID를 입력해주세요.");
+                return;
+            }
+            $.ajax({
+                method: 'get',
+                url: '/account/duplication',
+                data: {email: email},
+                dataType: 'text', //받아올 데이터 타입
+                success: function (result) {
+                    console.log(result);
+                    if (result == 'true') {
+                        alert("중복된 아이디입니다.");
+                        $("input[name='email']").val('');
+                    } else {
+                        alert("사용가능한 아이디입니다.");
+                        result2 = true;
+                        console.log(result2);
+                    }
+                }
+            });//ajax
+        });//btnemail
+
+
 
         $(".join").click(function (e) {
             e.preventDefault();
 
             var password = $("#password").val();
             var password2 = $("#password2").val();
-
+            nickName = $("#nickName").val();
             console.log(password);
             console.log(password2);
 
-            if (password.length > 0 && password === password2) {
-                console.log(email.length);
-                if(result2 && email.length > 0){
-
+            if(!result2){
+                alert("ID 중복확인");
+            } else if (password.length > 0 && password === password2
+                && result2 && email.length > 0) {
+                if(nickName.length > 0)
+                {
                     actionForm.submit();
+                    return;
                 }
-
-            } else if(password.length === 0) {
+                    alert("닉네임을 입력해주세요")
+            } else if (password.length === 0) {
                 alert("비밀번호를 입력해주세요.");
-            }else{
+            } else {
                 alert("비밀번호가 다릅니다.");
             }
-        });
-    });
+        });//join
+    });//document
 </script>
 </html>

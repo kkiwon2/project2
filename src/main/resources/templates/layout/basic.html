@@ -2,12 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <th:block th:fragment="setContent(content)">
+
     <head>
-
-
-
-        <title>Simple Sidebar - Start Bootstrap Template</title>
-
+        <title>게시판</title>
         <!-- Bootstrap core CSS -->
         <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
@@ -29,11 +26,11 @@
             <div class="sidebar-heading">퀵 메뉴</div>
             <div class="list-group list-group-flush">
                 <a th:href="@{/board/list}" class="list-group-item list-group-item-action bg-light">자유게시판</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
+                <a th:href="@{/movie/list}" class="list-group-item list-group-item-action bg-light">영화</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
                 <a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">상태정보</a>
+                <a th:href="@{/account/personal}" class="list-group-item list-group-item-action bg-light">상태정보</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->

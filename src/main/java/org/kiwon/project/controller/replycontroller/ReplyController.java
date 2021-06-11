@@ -3,7 +3,7 @@ package org.kiwon.project.controller.replycontroller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.kiwon.project.dto.board.ReplyDTO;
-import org.kiwon.project.service.ReplyService;
+import org.kiwon.project.service.reply.ReplyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

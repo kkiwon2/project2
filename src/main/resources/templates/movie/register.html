@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:replace="~{layout/basic :: setContent(~{this::content1})}">
+
+    <th:block th:fragment="content1">
+
+        <h1 class="mt-4">Movie RegisterPage</h1>
+
+        <form th:action="@{/movie/register}" th:method="post">
+            <input type="hidden" name="email" th:value="${memberDTO.email}">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" placeholder="Enter Title">
+            </div>
+
+            <div class="form-group fileForm">
+                <label>Image Files</label>
+                <div class="custom-file">
+                    <!-- 파일 업로드하는 부분은 custom-file-input이며 별도의 버튼 없이 파일을 선택하면 자동으로 이루어지도록 change 이벤트로 처리 -->
+                    <input type="file" class="custom-file-input files" id="fileInput" multiple>
+                    <label class="custom-file-label" data-browse="Browse"></label>
+                </div>
+            </div> <!--fileForm -->
+
+            <!-- 이 영역에 hidden 타입의 태그들을 만들게 된다 -->
+            <div class="box">
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- 화면에서 섬네일 이미지를 보여줄 영역을 이용해서 섬네일을 추가해줘야 됨 그 곳의 style 설정 -->
+        <style>
+            .uploadResult {
+                width: 100%;
+                background-color: gray;
+                margin-top: 10px;
+            }
+
+            .uploadResult ul {
+                display: flex;
+                flex-flow: row;
+                justify-content: center;
+                align-items: center;
+                vertical-align: top;
+                overflow: auto;
+            }
+
+            .uploadResult ul li {
+                list-style: none;
+                padding: 10px;
+                margin-left: 2em;
+            }
+
+            .uploadResult ul li img {
+                width: 100px;
+            }
+        </style>
+
+        <!-- 화면에서 섬네일 이미지를 보여줄 영역 -->
+        <div class="uploadResult">
+            <ul>
+
+            </ul>
+        </div>
+
+        <script>
+            $(document).ready(function (e){
+
+                //첨부파일의 확장자를 체크하기 위한 패턴
+                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                var maxSize = 10485760; //10MB
+
+                function checkExtension(fileName, fileSize){
+
+                    if(fileSize >= maxSize){
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+
+                    if(regex.test(fileName)){
+                        alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                        return false;
+                    }
+                    return true;
+                }//checkExtension
+
+                //첨부파일의 업로드 -> 별도의 버튼 없이 파일을 선택하면 자동으로 이루어지도록 change 이벤트로 처리함
+                $(".custom-file-input").on("change",function(){
+
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                    var formData = new FormData();
+                    var inputFile = $(this);
+                    var files = inputFile[0].files;
+                    var appended = false;
+
+                    for(var i=0; i< files.length; i++){
+
+                        if(!checkExtension(files[i].name, files[i].size)){
+                            return false;
+                        }
+
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        appended = true;
+                    }//end for
+
+                    //upload를 하지 않는다.
+                    if(!appended){
+                        return;
+                    }
+
+                    for (var value of formData.values()){
+                        console.log(value);
+                    }
+
+                    //실제 업로드 부분
+                    //upload ajax
+                    $.ajax({
+                        url: '/uploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type: 'POST',
+                        dataType: 'json',
+                        success: function (result){
+                            console.log(result);
+
+                            //Ajax의 호출 결과를 확인하기 위한 함수
+                            showResult(result);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown){
+                            console.log(textStatus);
+                        }
+                    })//end $.ajax
+                })//end custom-file-input
+
+                //이미지 파일의 삭제
+                $(".uploadResult").on("click", "li button", function (e){
+
+                    console.log("delete file");
+
+                    var targetFile = $(this).data("file");
+                    var targetLi = $(this).closest("li");
+                    console.log(targetLi);
+
+                    $.ajax({
+                        url: '/removeFile',
+                        data: {fileName: targetFile},
+                        dataType: 'text',
+                        type: 'POST',
+                        success: function (result){
+                            alert(result);
+                            targetLi.remove();
+
+                        }
+                    });//$.ajax
+                });//uploadResult
+
+                // prevent submit
+                // 각 이미지지 <li> 태그의 'data-' 속성들을 읽어 냅니다.
+                // 각 이미지를 <input type='hidden'> 태그로 구성하고
+                // imageDTOList[0]과 같이 구성하면 나중에 MoveDTO로 데이터를 수집할 때 자동으로 리스트로 변환되어서 처리할 수 있다.
+                $(".btn-primary").on("click", function (e){
+                    e.preventDefault();
+
+                    var str = "";    //each()함수를 스면 idx와 element즉 인덱스와 제이쿼리 요소가 온다고 이미 정의되어있다.
+                    $(".uploadResult li").each(function(i,obj){
+                        var target = $(obj);
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' " +
+                            "value='"+target.data('name') +"'>";
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].path' " +
+                            "value='"+target.data('path')+"'>";
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].uuid' " +
+                            "value='"+target.data('uuid')+"'>";
+                    });
+
+                    //태그들이 추가된 것을 확인한 후에 comment를 제거
+                    $(".box").html(str);
+
+                    $("form").submit();
+                });
+            });//document.ready
+
+            //Ajax의 호출 결과를 처리하는 함수
+            function showResult(uploadResultArr){
+
+                var uploadUL = $(".uploadResult ul");
+                var str ="";
+
+                $(uploadResultArr).each(function (i, obj){
+
+                    str += "<li data-name='" + obj.fileName + "' data-path='" +obj.folderPath+"' data-uuid='"
+                        +obj.uuid+"'>";
+                    str += "<div>";
+                    str +="<button type='button' data-file='" + obj.imageURL + "'";
+                    console.log("str test : " + str);
+                    str +="class='btn-warning btn-sm'>X</button><br>";
+                    str +="<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+                    str +="</div>";
+                    str += "</li>";
+                });//uploadResultArr.each
+
+                uploadUL.append(str);
+
+            }//showResult
+        </script>
+    </th:block>
+</th:block>

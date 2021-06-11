@@ -36,7 +36,8 @@ public class Board extends BaseEntity {
         this.content = content;
     }
 
-    public void changeCnt() {this.cnt += 1;}
+    public void changeCnt() {this.cnt += 1;
+        System.out.println("조회수 증가 this.cnt" + this.cnt);}
 
 
 }

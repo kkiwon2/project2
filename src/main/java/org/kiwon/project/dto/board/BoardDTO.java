@@ -21,7 +21,8 @@ public class BoardDTO {
 
     private String writerName;  //회원닉네임
 
-    private Long cnt = 0L;      //게시글 조회수
+
+    private Long cnt;      //게시글 조회수
 
     private int replyCount;     //댓글 개수
 
