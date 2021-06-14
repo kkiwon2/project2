@@ -19,6 +19,8 @@ public class MovieDTO {
 
     private String title;
 
+    private String content;
+
     private String email;
 
     private String nickName;

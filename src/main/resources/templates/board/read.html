@@ -36,7 +36,7 @@
 
         <input type="hidden" name="test" value=sec:authentication="principal.email">
 
-
+        <!-- 자유게시판 수정 버튼 -->
         <th:block th:if="${memberDTO.email == dto.writerEmail}">
             <a th:href="@{/board/modify(bno = ${dto.bno}, page=${requestDTO.page},
         type=${requestDTO.type}, keyword=${requestDTO.keyword})}">
@@ -44,6 +44,7 @@
             </a>
         </th:block>
 
+        <!-- 자유게시판 목록 버튼 -->
         <a th:href="@{/board/list(page=${requestDTO.page},
         type=${requestDTO.type}, keyword=${requestDTO.keyword})}">
             <button type="button" class="btn btn-info">List</button>

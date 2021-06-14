@@ -70,4 +70,25 @@ public class MovieController {
         model.addAttribute("dto", movieDTO);
         model.addAttribute("memberDTO", memberDTO);
     }
+
+    @PostMapping("/modify")
+    public String modify(MovieDTO movieDTO, RedirectAttributes redirectAttributes){
+        log.info("MovieController Post modify...............");
+
+        movieService.modify(movieDTO);
+
+        redirectAttributes.addAttribute("mno", movieDTO.getMno());
+        return "redirect:/movie/read";
+
+
+    }
+    @PostMapping("/remove")
+    public String remove(Long mno, RedirectAttributes redirectAttributes){
+        log.info("MovieController Post remove...............");
+        log.info(mno);
+        movieService.removeWithMovieImage(mno);
+
+        redirectAttributes.addFlashAttribute("msg",mno);
+        return "redirect:/movie/list";
+    }
 }

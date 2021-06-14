@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import org.kiwon.project.dto.movie.MovieDTO;
 import org.kiwon.project.dto.page.PageRequestDTO;
 import org.kiwon.project.dto.page.PageResultDTO;
+import org.kiwon.project.entity.board.Board;
 import org.kiwon.project.entity.member.Member;
 import org.kiwon.project.entity.movie.Movie;
 import org.kiwon.project.entity.movie.MovieImage;
@@ -105,5 +106,23 @@ public class MovieServiceImpl implements MovieService{
         Long reviewCnt = (Long) result.get(0)[3];
 
         return entitiesToDTO(movie, movieImageList, avg, reviewCnt);
+    }
+
+    @Override
+    public void modify(MovieDTO movieDTO) {
+        Movie movie = movieRepository.findById(movieDTO.getMno()).get();
+
+        if(movie != null){
+
+            log.info("실행되노?");
+        }
+    }
+
+    @Transactional
+    @Override
+    public void removeWithMovieImage(Long mno) {
+        imageRepository.deleteByMno(mno);
+        movieRepository.deleteById(mno);
+
     }
 }

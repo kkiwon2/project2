@@ -16,6 +16,7 @@ public interface BoardService {
     BoardDTO get(Long bno);
 
     void modify(BoardDTO boardDTO);
+
     void removeWithReplies(Long bno);
 
     default Board dtoToEntity(BoardDTO dto){

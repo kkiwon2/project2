@@ -1,5 +1,6 @@
 package org.kiwon.project.service.movie;
 
+import org.kiwon.project.dto.board.BoardDTO;
 import org.kiwon.project.dto.movie.MovieDTO;
 import org.kiwon.project.dto.movie.MovieImageDTO;
 import org.kiwon.project.dto.page.PageRequestDTO;
@@ -24,6 +25,12 @@ public interface MovieService {
     
     //특정한 영화의 번호를 이용해서 MovieDTO를 반환하는 메서드 -> 영화 조회 페이지
     MovieDTO getMovie(Long mno);
+
+    //영화를 수정하는 메서드
+    void modify(MovieDTO movieDTO);
+
+    //영화를 삭제하는 메서드
+    void removeWithMovieImage(Long bno);
     
     //dto를 Entity로 변환 -> MovieDTO는 List로 ImageDTOList를 가지고있으므로 Map으로 Entity 2개를 처리해야 함
     default Map<String, Object> dtoToEntity(MovieDTO movieDTO){
@@ -33,6 +40,7 @@ public interface MovieService {
         Movie movie = Movie.builder()
                 .mno(movieDTO.getMno())
                 .title(movieDTO.getTitle())
+                .content(movieDTO.getContent()) //6.14일 영화내용 추가
                 .cnt(movieDTO.getCnt())
                 .member(Member.builder().email(movieDTO.getEmail()).build())    //6.11일 추가 - 영화리스트 작성자 처리
                 .build();
@@ -68,9 +76,10 @@ public interface MovieService {
         MovieDTO movieDTO = MovieDTO.builder()
                 .mno(movie.getMno())
                 .title(movie.getTitle())
-                .cnt(movie.getCnt())
-                .email(movie.getMember().getEmail())    //6.11일 추가 - 영화리스트 작성자 처리
-                .nickName(movie.getMember().getNickName()) //6.11일 추가 - 영화리스트 작성자 처리
+                .content(movie.getContent())                //6.14일 추가 - 영화내용 추가                
+                .cnt(movie.getCnt())                        //6.09일 추가 - 영화조회수 추가
+                .email(movie.getMember().getEmail())        //6.11일 추가 - 영화리스트 작성자 처리
+                .nickName(movie.getMember().getNickName())  //6.11일 추가 - 영화리스트 작성자 처리
                 .regDate(movie.getRegDate())
                 .modDate(movie.getModDate())
                 .build();
