@@ -1,10 +1,11 @@
 language: java
 jdk:
-  - openjdk8
+  - oraceljdk8
 
 branches:
   only:
     - master
+
 
 # Travis CI 서버의 Home
 cache:
@@ -13,6 +14,7 @@ cache:
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
+
 
 notifications:
   email:
