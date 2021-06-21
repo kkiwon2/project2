@@ -11,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 import java.util.stream.IntStream;
 
-@SpringBootTest
+@SpringBootTest(
+        classes = ReviewRepositoryTests.class
+)
 public class ReviewRepositoryTests {
 
     @Autowired

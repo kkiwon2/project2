@@ -18,7 +18,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
-@SpringBootTest
+@SpringBootTest(
+        classes = MovieRepositoryTests.class
+)
 public class MovieRepositoryTests {
 
     @Autowired

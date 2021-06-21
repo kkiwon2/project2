@@ -14,7 +14,7 @@ import javax.transaction.Transactional;
 import java.util.stream.IntStream;
 
 @SpringBootTest(
-        properties = ""
+        classes = MemberRepositoryTests.class
 )
 public class MemberRepositoryTests {
 
