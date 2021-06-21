@@ -52,12 +52,22 @@
 
         </div>
 
-        <!-- 영화 조회화면 하단에 수정 버튼  6.14일 영화 수정버튼 추가-->
-        <th:block th:if="${memberDTO.email == dto.email}">
-            <a th:href="@{/movie/modify(mno = ${dto.mno})}">
-                <button type="button" class="btn btn-danger"> Modify </button>
+        <!-- 영화 조회화면 하단에 수정 버튼  6.14일 영화 수정버튼 추가 -->
+        <div th:class="form-group">
+
+            <!-- 영화 상세조회 게시판 목록 버튼  6.14일 추가 -->
+            <a th:href="@{/movie/list}">
+                <button type="button" class="btn btn-info">List</button>
             </a>
-        </th:block>
+
+            <!-- 영화 상세조회 게시판 수정 버튼 6.14일 추가 -->
+            <th:block th:if="${memberDTO.email == dto.email}">
+                <a th:href="@{/movie/modify(mno = ${dto.mno})}">
+                    <button type="button" class="btn btn-danger"> Modify </button>
+                </a>
+            </th:block>
+
+        </div>
 
         <!-- 조회화면 하단에 리뷰등록 버튼 -->
         <button type="button" class="btn btn-info addReviewBtn">

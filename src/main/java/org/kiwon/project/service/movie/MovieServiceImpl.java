@@ -12,6 +12,7 @@ import org.kiwon.project.entity.movie.MovieImage;
 import org.kiwon.project.entity.movie.Review;
 import org.kiwon.project.repository.movie.MovieImageRepository;
 import org.kiwon.project.repository.movie.MovieRepository;
+import org.kiwon.project.repository.movie.ReviewRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -32,6 +33,8 @@ public class MovieServiceImpl implements MovieService{
     private final MovieRepository movieRepository;
 
     private final MovieImageRepository imageRepository;
+
+    private final ReviewRepository reviewRepository;
 
     //영화 등록메서드
     @Transactional
@@ -122,7 +125,11 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public void removeWithMovieImage(Long mno) {
         imageRepository.deleteByMno(mno);
+        log.info("MovieServiceImpl removeWithMovieImage............");
+        reviewRepository.deleteByMovie(mno);
         movieRepository.deleteById(mno);
+
+
 
     }
 }
