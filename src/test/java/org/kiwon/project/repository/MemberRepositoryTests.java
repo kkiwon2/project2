@@ -13,7 +13,9 @@ import org.springframework.test.annotation.Commit;
 import javax.transaction.Transactional;
 import java.util.stream.IntStream;
 
-@SpringBootTest
+@SpringBootTest(
+        properties = ""
+)
 public class MemberRepositoryTests {
 
     @Autowired
