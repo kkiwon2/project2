@@ -34,7 +34,7 @@ deploy:
         local_dir: deploy # before_deploy에서 생성한 디렉토리
         wait-until-deployed: true
 
-          - provider: codedeploy
+      - provider: codedeploy
             access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
             secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
             bucket: project2-springboot-build # S3 버킷
