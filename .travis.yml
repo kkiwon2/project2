@@ -18,7 +18,7 @@ script: "./gradlew clean build"
 # deploy 명령어가 실행되기 전에 수행됩니다.
 # CodeDeploy는 Jar 파일은 인삭하지 못하므로 Jar + 기타 설정 파일들을 모아 압축(zip)합니다. -> 수정함 361페이지 참조
 before_deploy:
-  - zip -r springboot-project.zip
+  - zip -r springboot-project *
   - mkdir -p deploy
   - mv springboot-project.zip deploy/springboot-project.zip
 
