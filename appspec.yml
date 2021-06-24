@@ -15,6 +15,6 @@ permissions:
     # ApplicationStart라는 단계에서 deploy.sh를 ec2-user 권한으로 실행하게 합니다.
 hooks:
   ApplicationStart:
-    - location: deploy.sh
+    - location: deploy.sh # 엔진엑스와 연결되어 있지 않은 Port로 새 버전의 스프링 부트를 시작합니다.
       timeout: 60
       runas: ec2-user
