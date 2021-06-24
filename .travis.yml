@@ -51,6 +51,7 @@ deploy:
 
 before_install:
   - chmod +x gradlew
+  - chmod +x deploy.sh
 
 notifications:
   email:
