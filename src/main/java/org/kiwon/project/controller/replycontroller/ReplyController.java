@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+//JSON을 반환하는 컨트롤러로 만들어주는 어노테이션이다. -> 예전에는 @ResponseBody 어노테이션도 필요했다.
 @RestController
 @RequestMapping("/replies")
 @Log4j2
